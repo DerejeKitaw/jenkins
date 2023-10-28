@@ -1,0 +1,25 @@
+version: '3'
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk11
+    ports:
+      - "8080:8080"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - jenkins-net
+  nexus:
+    image: sonatype/nexus3
+    restart: always
+    ports:
+      - "8081:8081"
+    volumes:
+      - nexus_data:/nexus-data
+    networks:
+      - nexus-net
+volumes:
+  jenkins_home:
+  nexus_data:
+networks:
+  jenkins-net:
+  nexus-net:
